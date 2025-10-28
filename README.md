@@ -1,45 +1,66 @@
-# chloecovell.bio
+# Chloe Covell - Official Biography
 
-This domain is part of the **Skateboarders** project and uses shared infrastructure for efficient resource management.
+This is the official biography website for professional skateboarder Chloe Covell, featuring a custom purple/pink themed design.
 
-## Shared Resources
+## Features
 
-### R2 Object Storage
-- **Bucket:** `skateboarders`
-- **Domain Prefix:** `chloecovell.bio/`
-- All images and assets for this domain are stored under the `chloecovell.bio/` prefix
+- **Custom Purple/Pink Theme**: Unique gradient design different from skateboard.bio
+- **Personal Biography Layout**: Single-page design focused on Chloe's story
+- **Shared Database**: Queries the same Neon PostgreSQL database as skateboard.bio
+- **Sponsor Showcase**: Dynamic display of current sponsors
+- **Social Integration**: Links to Instagram, TikTok, and other platforms
 
-**Upload files:** Use the included `upload.js` script
-```bash
-node upload.js ./my-image.jpg images
-```
+## Architecture
 
-### Shared Database
-This domain shares a PostgreSQL database with other domains in the Skateboarders project.
-- **Connection:** See `DATABASE_URL` in `.env`
-- **Multi-tenant isolation:** Implement row-level security or application-level filtering using domain name
-
-## Environment Variables
-Copy `.env.example` to `.env` and fill in the values:
-```bash
-cp .env.example .env
-```
-
-## Development
-```bash
-# Install dependencies (if adding frameworks)
-npm install
-
-# Serve locally
-npx http-server
-
-# Upload assets
-node upload.js ./images/logo.png images
-```
-
-## Analytics
-- Google Analytics: Not configured
-- Search Console: Verification meta tag included in index.html
+This site demonstrates a **hybrid architecture** where:
+- Each skater can have their own repository with a unique design
+- All sites query the same centralized Neon database
+- Content is managed in one place, designs are customized per skater
 
 ## Deployment
-This site is automatically deployed via Cloudflare Pages. Push to the `main` branch to trigger a new deployment.
+
+This site is deployed on Cloudflare Pages and uses:
+- **Cloudflare Pages Functions** for serverless API routes
+- **Neon PostgreSQL** (empty-cherry-02878215) for shared database
+- **Custom Domain**: chloecovell.bio
+
+### Environment Variables
+
+The following environment variable must be configured in Cloudflare Pages:
+- `NEON_DATABASE_URL` - Connection string to the shared skateboard.bio database
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run locally
+npm run dev
+
+# Deploy to Cloudflare Pages
+npm run deploy
+```
+
+## Database Schema
+
+The site queries the `skaters` table which includes:
+- `full_name`, `nickname`, `bio`
+- `birth_date`, `birthplace`, `hometown`
+- `stance`, `turned_pro_year`
+- `sponsors` (array)
+- `social_links` (JSONB)
+- `profile_image_url`, `header_image_url`
+
+## Comparison with skateboard.bio
+
+| Feature | skateboard.bio | chloecovell.bio |
+|---------|---------------|-----------------|
+| **Design** | Neutral SaaS dashboard | Purple/pink personal biography |
+| **Layout** | Multi-page, data-focused | Single-page, story-focused |
+| **Content** | All skaters | Chloe Covell only |
+| **Database** | Shared Neon PostgreSQL | Shared Neon PostgreSQL |
+| **Repository** | skateboard-bio | chloecovell-bio |
+| **Customization** | Standardized | Fully customized |
+
+This hybrid approach allows each skater to have their own branded presence while maintaining centralized data management.
