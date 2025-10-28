@@ -1,0 +1,15 @@
+{
+  "name": "chloecovell-bio",
+  "version": "1.0.0",
+  "description": "Official biography site for Chloe Covell - Professional Skateboarder",
+  "scripts": {
+    "dev": "wrangler pages dev . --compatibility-date=2024-01-01",
+    "deploy": "wrangler pages deploy ."
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
